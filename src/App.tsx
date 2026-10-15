@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { COMPARATIVE_RATINGS, TEN_STRATEGIES, FORM_A_SYSTEM_PROMPT, FORM_B_PYTHON_BLUEPRINT, FORM_C_MODELFILE, WORKFLOW_STEPS, END_OF_SESSION_PROTOCOL, PATTERN_ENGINE, DETERMINISTIC_FACTORS, GPU_ACCELERATION } from './data';
+import { COMPARATIVE_RATINGS, TEN_STRATEGIES, FORM_A_SYSTEM_PROMPT, FORM_B_PYTHON_BLUEPRINT, FORM_C_MODELFILE, WORKFLOW_STEPS, END_OF_SESSION_PROTOCOL, PATTERN_ENGINE, DETERMINISTIC_FACTORS, GPU_ACCELERATION, PATH_HASHING, TEST_GENERATION_LOOP, THREE_MIND_COUNCIL, HARDWARE_ORCHESTRATION, COMPILER_IN_LOOP } from './data';
 
 function App() {
   const [activeTab, setActiveTab] = useState<'overview' | 'strategies' | 'advanced' | 'ratings' | 'deployment' | 'workflow'>('overview');
@@ -284,6 +284,228 @@ function App() {
                     </div>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            {/* Path Hashing for Loop Detection */}
+            <div className="bg-gradient-to-br from-blue-900/30 via-indigo-900/30 to-purple-900/30 rounded-2xl p-8 border border-blue-500/30">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="text-6xl">{PATH_HASHING.icon}</div>
+                <div className="flex-1">
+                  <h2 className="text-3xl font-bold mb-2">{PATH_HASHING.name}</h2>
+                  <p className="text-sm text-blue-400 font-mono mb-3">Codename: {PATH_HASHING.codename}</p>
+                  <p className="text-gray-300">{PATH_HASHING.description}</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <h3 className="text-lg font-bold mb-3 text-blue-400">Capabilities</h3>
+                  <ul className="space-y-2">
+                    {PATH_HASHING.capabilities.map((cap, i) => (
+                      <li key={i} className="text-sm text-gray-300 flex items-start gap-2">
+                        <span className="text-blue-400 mt-1">▸</span>
+                        <span>{cap}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <h3 className="text-lg font-bold mb-3 text-green-400">Technical Details</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="text-sm text-gray-400 mb-1">Algorithm</div>
+                      <div className="text-sm text-gray-300 font-mono">{PATH_HASHING.algorithm}</div>
+                    </div>
+                    <div>
+                      <div className="text-sm text-gray-400 mb-1">Performance</div>
+                      <div className="text-sm text-green-400">{PATH_HASHING.performance}</div>
+                    </div>
+                    <div>
+                      <div className="text-sm text-gray-400 mb-1">Example</div>
+                      <div className="text-xs text-gray-300">{PATH_HASHING.example}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Test Generation & Execution Loop */}
+            <div className="bg-gradient-to-br from-green-900/30 via-emerald-900/30 to-teal-900/30 rounded-2xl p-8 border border-green-500/30">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="text-6xl">{TEST_GENERATION_LOOP.icon}</div>
+                <div className="flex-1">
+                  <h2 className="text-3xl font-bold mb-2">{TEST_GENERATION_LOOP.name}</h2>
+                  <p className="text-sm text-green-400 font-mono mb-3">Codename: {TEST_GENERATION_LOOP.codename}</p>
+                  <p className="text-gray-300">{TEST_GENERATION_LOOP.description}</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <h3 className="text-lg font-bold mb-3 text-green-400">Roles</h3>
+                  <div className="space-y-3">
+                    {TEST_GENERATION_LOOP.roles.map((role, i) => (
+                      <div key={i} className="bg-gray-900/50 rounded-lg p-3">
+                        <div className="text-sm font-bold text-green-300 mb-1">{role.role}</div>
+                        <div className="text-xs text-gray-400 mb-1">{role.responsibility}</div>
+                        <div className="text-xs text-gray-500">Output: {role.output}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <h3 className="text-lg font-bold mb-3 text-blue-400">Workflow</h3>
+                  <div className="space-y-1">
+                    {TEST_GENERATION_LOOP.workflow.map((step, i) => (
+                      <div key={i} className="text-xs text-gray-300">{step}</div>
+                    ))}
+                  </div>
+                  <div className="mt-4 pt-4 border-t border-gray-700">
+                    <div className="text-sm text-gray-400 mb-1">Max Iterations: <span className="text-green-400 font-bold">{TEST_GENERATION_LOOP.maxIterations}</span></div>
+                    <div className="text-sm text-gray-400 mb-1">Success Rate: <span className="text-green-400 font-bold">{TEST_GENERATION_LOOP.successRate}</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Weighted 3-Mind Council Voting */}
+            <div className="bg-gradient-to-br from-purple-900/30 via-violet-900/30 to-fuchsia-900/30 rounded-2xl p-8 border border-purple-500/30">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="text-6xl">{THREE_MIND_COUNCIL.icon}</div>
+                <div className="flex-1">
+                  <h2 className="text-3xl font-bold mb-2">{THREE_MIND_COUNCIL.name}</h2>
+                  <p className="text-sm text-purple-400 font-mono mb-3">Codename: {THREE_MIND_COUNCIL.codename}</p>
+                  <p className="text-gray-300">{THREE_MIND_COUNCIL.description}</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                {THREE_MIND_COUNCIL.minds.map((mind, i) => (
+                  <div key={i} className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-lg font-bold text-purple-300">{mind.mind}</h3>
+                      <span className="text-2xl font-bold text-purple-400">{(mind.weight * 100).toFixed(0)}%</span>
+                    </div>
+                    <div className="space-y-2 text-xs">
+                      <div>
+                        <span className="text-gray-500">Expertise:</span>
+                        <div className="text-gray-300">{mind.expertise}</div>
+                      </div>
+                      <div>
+                        <span className="text-gray-500">Bias:</span>
+                        <div className="text-gray-300">{mind.bias}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+              
+              <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                <h3 className="text-lg font-bold mb-3 text-purple-400">Voting Mechanism</h3>
+                <div className="space-y-3">
+                  <div className="text-sm text-gray-300">{THREE_MIND_COUNCIL.votingMechanism}</div>
+                  <div className="text-sm text-gray-400">Consensus Threshold: <span className="text-purple-400 font-bold">{(THREE_MIND_COUNCIL.consensusThreshold * 100).toFixed(0)}%</span></div>
+                  <div className="text-sm text-gray-400">Adaptive Weights: <span className="text-gray-300">{THREE_MIND_COUNCIL.adaptiveWeights}</span></div>
+                  <div className="text-xs text-gray-500 mt-3 pt-3 border-t border-gray-700">
+                    <span className="text-gray-400">Example:</span> {THREE_MIND_COUNCIL.example}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Hardware-Aware Resource Orchestration */}
+            <div className="bg-gradient-to-br from-cyan-900/30 via-blue-900/30 to-indigo-900/30 rounded-2xl p-8 border border-cyan-500/30">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="text-6xl">{HARDWARE_ORCHESTRATION.icon}</div>
+                <div className="flex-1">
+                  <h2 className="text-3xl font-bold mb-2">{HARDWARE_ORCHESTRATION.name}</h2>
+                  <p className="text-sm text-cyan-400 font-mono mb-3">Codename: {HARDWARE_ORCHESTRATION.codename}</p>
+                  <p className="text-gray-300">{HARDWARE_ORCHESTRATION.description}</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <h3 className="text-lg font-bold mb-3 text-cyan-400">Memory Tiers</h3>
+                  <div className="space-y-3">
+                    {HARDWARE_ORCHESTRATION.memoryTiers.map((tier, i) => (
+                      <div key={i} className="bg-gray-900/50 rounded-lg p-3">
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-bold text-cyan-300">{tier.tier}</span>
+                          <span className="text-xs text-gray-400">{tier.capacity}</span>
+                        </div>
+                        <div className="text-xs text-gray-400 mb-1">Speed: {tier.speed}</div>
+                        <div className="text-xs text-gray-500">{tier.usage}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <h3 className="text-lg font-bold mb-3 text-blue-400">Orchestration Strategy</h3>
+                  <div className="space-y-1 mb-4">
+                    {HARDWARE_ORCHESTRATION.orchestrationStrategy.map((step, i) => (
+                      <div key={i} className="text-xs text-gray-300">{step}</div>
+                    ))}
+                  </div>
+                  <div className="space-y-2 text-xs">
+                    <div>
+                      <span className="text-gray-500">Predictive Offload:</span>
+                      <div className="text-gray-300">{HARDWARE_ORCHESTRATION.predictiveOffload}</div>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">mmap Strategy:</span>
+                      <div className="text-gray-300">{HARDWARE_ORCHESTRATION.mmapStrategy}</div>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Performance Gain:</span>
+                      <span className="text-green-400 font-bold">{HARDWARE_ORCHESTRATION.performanceGain}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Compiler-in-the-Loop Validation */}
+            <div className="bg-gradient-to-br from-orange-900/30 via-red-900/30 to-pink-900/30 rounded-2xl p-8 border border-orange-500/30">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="text-6xl">{COMPILER_IN_LOOP.icon}</div>
+                <div className="flex-1">
+                  <h2 className="text-3xl font-bold mb-2">{COMPILER_IN_LOOP.name}</h2>
+                  <p className="text-sm text-orange-400 font-mono mb-3">Codename: {COMPILER_IN_LOOP.codename}</p>
+                  <p className="text-gray-300">{COMPILER_IN_LOOP.description}</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <h3 className="text-lg font-bold mb-3 text-orange-400">Supported Commands</h3>
+                  <div className="space-y-2">
+                    {COMPILER_IN_LOOP.supportedCommands.map((cmd, i) => (
+                      <div key={i} className="bg-gray-900/50 rounded-lg p-2 flex items-center justify-between">
+                        <span className="text-sm font-mono text-orange-300">{cmd.command}</span>
+                        <span className="text-xs text-gray-400">{cmd.language}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <h3 className="text-lg font-bold mb-3 text-blue-400">Workflow</h3>
+                  <div className="space-y-1 mb-4">
+                    {COMPILER_IN_LOOP.workflow.map((step, i) => (
+                      <div key={i} className="text-xs text-gray-300">{step}</div>
+                    ))}
+                  </div>
+                  <div className="space-y-2 text-xs pt-3 border-t border-gray-700">
+                    <div>Max Fixes: <span className="text-orange-400 font-bold">{COMPILER_IN_LOOP.maxFixes}</span></div>
+                    <div>Success Rate: <span className="text-green-400 font-bold">{COMPILER_IN_LOOP.successRate}</span></div>
+                    <div>Error Parsing: <span className="text-gray-300">{COMPILER_IN_LOOP.errorParsing}</span></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

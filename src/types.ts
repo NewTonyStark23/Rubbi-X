@@ -1,3 +1,44 @@
+export interface ModelComparison {
+  name: string;
+  icon: string;
+  color: string;
+  ratings: {
+    problemDecomposition: number;
+    loopAvoidance: number;
+    creativeResolution: number;
+    memoryPersistence: number;
+    selfCorrection: number;
+    crossDomainTransfer: number;
+    atomicReasoning: number;
+    convergenceSpeed: number;
+  };
+  overallScore: number;
+  strengths: string[];
+  weaknesses: string[];
+  verdict: string;
+}
+
+export interface GraphifyInstance {
+  id: string;
+  label: string;
+  type: 'persistent' | 'ephemeral';
+  purpose: string;
+  status: 'active' | 'backed_up' | 'archived' | 'deleted';
+  nodeCount: number;
+  atomicNoteCount: number;
+  backupCount: number;
+  createdAt: number;
+  lifecycle: LifecycleEvent[];
+}
+
+export interface LifecycleEvent {
+  timestamp: number;
+  event: 'spawned' | 'solving' | 'loop_detected' | 'resolved' | 'backed_up' | 'merged_to_parent' | 'deleted' | 'restored';
+  detail: string;
+  source?: string;
+  target?: string;
+}
+
 export interface AtomicNote {
   id: string;
   timestamp: number;
@@ -8,8 +49,6 @@ export interface AtomicNote {
   lesson: string;
   pathHash: string;
   dimension: string;
-  agents: string[];
-  tools: string[];
   blocked: boolean;
 }
 
@@ -23,55 +62,16 @@ export interface LoopEvent {
   newPathInjected: string;
 }
 
-export interface GraphifyNode {
+export interface BackupEntry {
   id: string;
-  dimension: string;
-  label: string;
-  atomicNotes: AtomicNote[];
-  visitedPaths: string[];
-  loopCount: number;
-  isBlocked: boolean;
-  confidence: number;
-}
-
-export interface ResolutionPath {
-  id: string;
-  name: string;
-  hash: string;
-  nodes: string[];
-  status: 'exploring' | 'converged' | 'dead_end' | 'loop_detected';
-  iteration: number;
-  probability: number;
-  confidence: number;
-}
-
-export interface Agent {
-  id: string;
-  name: string;
-  role: string;
-  icon: string;
-  status: 'idle' | 'active' | 'vetting' | 'complete';
-  expertise: string[];
-  resolutionCount: number;
-  accuracyScore: number;
-}
-
-export interface GitHubTool {
-  name: string;
-  url: string;
-  purpose: string;
-  category: string;
-  stars: string;
-  integration: string;
-}
-
-export interface DeterministicFactor {
-  name: string;
-  abbr: string;
-  score: number;
-  maxScore: number;
-  description: string;
-  trend: 'up' | 'down' | 'stable';
+  sourceInstanceId: string;
+  sourceLabel: string;
+  timestamp: number;
+  snapshotSize: string;
+  nodeCount: number;
+  noteCount: number;
+  reason: string;
+  restorable: boolean;
 }
 
 export interface SuperpowerSkill {

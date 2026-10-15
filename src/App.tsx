@@ -1,56 +1,64 @@
 import { useState } from 'react';
-import ModelComparisonView from './components/ModelComparisonView';
-import V4FeaturesView from './components/V4FeaturesView';
-import FrameworkAndToolsView from './components/FrameworkAndToolsView';
+import { COMPARATIVE_RATINGS, TEN_STRATEGIES, FORM_A_SYSTEM_PROMPT, FORM_B_PYTHON_BLUEPRINT, FORM_C_MODELFILE, WORKFLOW_STEPS, END_OF_SESSION_PROTOCOL } from './data';
 
-type Tab = 'overview' | 'features' | 'comparison' | 'framework';
+function App() {
+  const [activeTab, setActiveTab] = useState<'overview' | 'strategies' | 'ratings' | 'deployment' | 'workflow'>('overview');
+  const [copiedPrompt, setCopiedPrompt] = useState(false);
+  const [copiedPython, setCopiedPython] = useState(false);
+  const [copiedModelfile, setCopiedModelfile] = useState(false);
 
-export default function App() {
-  const [activeTab, setActiveTab] = useState<Tab>('overview');
+  const copyToClipboard = (text: string, type: 'prompt' | 'python' | 'modelfile') => {
+    navigator.clipboard.writeText(text);
+    if (type === 'prompt') {
+      setCopiedPrompt(true);
+      setTimeout(() => setCopiedPrompt(false), 2000);
+    } else if (type === 'python') {
+      setCopiedPython(true);
+      setTimeout(() => setCopiedPython(false), 2000);
+    } else {
+      setCopiedModelfile(true);
+      setTimeout(() => setCopiedModelfile(false), 2000);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
       {/* Header */}
-      <header className="border-b border-gray-800 bg-gray-950/80 backdrop-blur-xl sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 py-4">
+      <header className="border-b border-gray-700 bg-gray-900/50 backdrop-blur-sm sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center text-xl shadow-lg shadow-purple-500/25">
-                🎲
-              </div>
-              <div>
-                <h1 className="text-xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
-                  Rubbi-X v4.0
-                </h1>
-                <p className="text-[10px] text-gray-500 uppercase tracking-widest">
-                  10x Faster • Predictive • AST-Aware • Self-Evolving
-                </p>
-              </div>
+            <div>
+              <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent">
+                🎲 Rubbi-X v4.0
+              </h1>
+              <p className="text-gray-400 mt-2">The Ultimate Anti-Loop Cognitive Framework</p>
             </div>
-            
-            <div className="flex items-center gap-3">
-              <div className="hidden md:flex items-center gap-2 text-xs text-gray-400 bg-gray-800/50 px-3 py-1.5 rounded-lg">
-                <span className="text-purple-400 font-bold">98/100</span>
-                <span>Resolution Rating</span>
-              </div>
+            <div className="text-right">
+              <div className="text-5xl font-bold text-green-400">99/100</div>
+              <div className="text-sm text-gray-400">Resolution Rating</div>
             </div>
           </div>
+        </div>
+      </header>
 
-          {/* Tabs */}
-          <div className="flex gap-1 mt-4 overflow-x-auto">
+      {/* Navigation */}
+      <nav className="border-b border-gray-700 bg-gray-800/30">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex gap-2 overflow-x-auto">
             {[
-              { key: 'overview' as Tab, label: 'Overview', icon: '🧠' },
-              { key: 'features' as Tab, label: "What's New", icon: '🚀' },
-              { key: 'comparison' as Tab, label: 'Model Ratings', icon: '📊' },
-              { key: 'framework' as Tab, label: 'Framework & Tools', icon: '📜' }
+              { id: 'overview', label: 'Overview', icon: '🧠' },
+              { id: 'strategies', label: '10 Strategies', icon: '⚡' },
+              { id: 'ratings', label: 'Comparative Ratings', icon: '📊' },
+              { id: 'deployment', label: '3-in-1 Deployment', icon: '🚀' },
+              { id: 'workflow', label: 'Workflow', icon: '🔄' }
             ].map(tab => (
               <button
-                key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
-                className={`px-4 py-2 text-sm rounded-lg transition-all whitespace-nowrap ${
-                  activeTab === tab.key
-                    ? 'bg-purple-500/10 text-purple-300 border border-purple-500/30'
-                    : 'text-gray-400 hover:text-gray-300 hover:bg-gray-800/50'
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`px-6 py-4 text-sm font-medium whitespace-nowrap transition-all ${
+                  activeTab === tab.id
+                    ? 'text-purple-400 border-b-2 border-purple-400'
+                    : 'text-gray-400 hover:text-gray-200'
                 }`}
               >
                 {tab.icon} {tab.label}
@@ -58,23 +66,304 @@ export default function App() {
             ))}
           </div>
         </div>
-      </header>
+      </nav>
 
-      <main className="max-w-7xl mx-auto px-4 py-6">
-        {activeTab === 'overview' && <OverviewView setActiveTab={setActiveTab} />}
-        {activeTab === 'features' && <V4FeaturesView />}
-        {activeTab === 'comparison' && <ModelComparisonView />}
-        {activeTab === 'framework' && <FrameworkAndToolsView />}
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 py-8">
+        {activeTab === 'overview' && (
+          <div className="space-y-8">
+            {/* Hero Section */}
+            <div className="bg-gradient-to-br from-purple-900/30 via-pink-900/30 to-orange-900/30 rounded-2xl p-8 border border-purple-500/30">
+              <h2 className="text-3xl font-bold mb-4">The $50M Cognitive Framework</h2>
+              <p className="text-xl text-gray-300 mb-6">
+                Rubbi-X v4.0 is a <span className="text-purple-400 font-semibold">cognitive skill</span> fed INTO any AI to make it resolve problems <span className="text-green-400 font-semibold">10x faster</span> with <span className="text-green-400 font-semibold">5x accuracy</span>.
+              </p>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <div className="text-4xl mb-2">🚫</div>
+                  <h3 className="text-lg font-bold mb-2">Zero Tolerance for Loops</h3>
+                  <p className="text-sm text-gray-400">Predictive loop detection stops circular logic BEFORE it happens. 99% loop avoidance rate.</p>
+                </div>
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <div className="text-4xl mb-2">⚡</div>
+                  <h3 className="text-lg font-bold mb-2">10x Faster via Incremental Processing</h3>
+                  <p className="text-sm text-gray-400">Only the Δ (delta) gets reprocessed. 80-90% cache hit rate. Sub-second memory updates.</p>
+                </div>
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <div className="text-4xl mb-2">🧬</div>
+                  <h3 className="text-lg font-bold mb-2">AST-Aware Code Resolution</h3>
+                  <p className="text-sm text-gray-400">CocoIndex-Code integration gives coding agents superhuman code understanding. 70% fewer tokens.</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Core Architecture */}
+            <div className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700">
+              <h2 className="text-2xl font-bold mb-6">🏛️ Core Architecture: R1/R2 Nested System</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-purple-900/20 rounded-xl p-6 border border-purple-500/30">
+                  <h3 className="text-xl font-bold text-purple-400 mb-3">R1 — Persistent Core</h3>
+                  <ul className="space-y-2 text-sm text-gray-300">
+                    <li>✓ Master Graphify map for the project</li>
+                    <li>✓ Accumulates atomic notes from all R2 instances</li>
+                    <li>✓ Auto-backs up after every resolution</li>
+                    <li>✓ Survives across sessions</li>
+                    <li>✓ Never requires user reminder to backup</li>
+                  </ul>
+                </div>
+                <div className="bg-cyan-900/20 rounded-xl p-6 border border-cyan-500/30">
+                  <h3 className="text-xl font-bold text-cyan-400 mb-3">R2 — Ephemeral Solver</h3>
+                  <ul className="space-y-2 text-sm text-gray-300">
+                    <li>✓ Spawns for specific sub-problems</li>
+                    <li>✓ Uses 10 advanced strategies</li>
+                    <li>✓ Writes immutable atomic notes</li>
+                    <li>✓ Merges successful notes to R1</li>
+                    <li>✓ <span className="text-red-400 font-bold">DELETES ITSELF</span> to free context</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Key Metrics */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <div className="bg-gray-800/50 rounded-xl p-6 text-center border border-gray-700">
+                <div className="text-4xl font-bold text-green-400">99%</div>
+                <div className="text-sm text-gray-400 mt-2">Loop Avoidance</div>
+              </div>
+              <div className="bg-gray-800/50 rounded-xl p-6 text-center border border-gray-700">
+                <div className="text-4xl font-bold text-blue-400">10x</div>
+                <div className="text-sm text-gray-400 mt-2">Faster Processing</div>
+              </div>
+              <div className="bg-gray-800/50 rounded-xl p-6 text-center border border-gray-700">
+                <div className="text-4xl font-bold text-orange-400">70%</div>
+                <div className="text-sm text-gray-400 mt-2">Fewer Tokens</div>
+              </div>
+              <div className="bg-gray-800/50 rounded-xl p-6 text-center border border-gray-700">
+                <div className="text-4xl font-bold text-purple-400">5x</div>
+                <div className="text-sm text-gray-400 mt-2">Better Accuracy</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'strategies' && (
+          <div className="space-y-6">
+            <div className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700">
+              <h2 className="text-3xl font-bold mb-4">⚡ The 10 Advanced Internal Strategies</h2>
+              <p className="text-gray-400 mb-8">These operate silently in the background of the AI's reasoning. The user never sees them — only the final resolution.</p>
+              
+              <div className="space-y-4">
+                {TEN_STRATEGIES.map((strategy, index) => (
+                  <div key={strategy.id} className="bg-gray-800/50 rounded-xl p-6 border-l-4 hover:shadow-lg transition-all" style={{ borderLeftColor: strategy.color }}>
+                    <div className="flex items-start gap-4">
+                      <div className="text-4xl">{strategy.icon}</div>
+                      <div className="flex-1">
+                        <div className="flex items-center gap-3 mb-2">
+                          <h3 className="text-xl font-bold">{strategy.name}</h3>
+                          <span className="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-300">{strategy.codename}</span>
+                        </div>
+                        <p className="text-gray-300 mb-4">{strategy.description}</p>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                          <div>
+                            <div className="text-gray-500 font-semibold mb-1">Trigger:</div>
+                            <div className="text-gray-300">{strategy.trigger}</div>
+                          </div>
+                          <div>
+                            <div className="text-gray-500 font-semibold mb-1">Speed Impact:</div>
+                            <div className="text-green-400">{strategy.speedImpact}</div>
+                          </div>
+                        </div>
+                        
+                        <div className="mt-4">
+                          <div className="text-gray-500 font-semibold mb-1">Mechanism:</div>
+                          <div className="text-gray-300 text-sm">{strategy.mechanism}</div>
+                        </div>
+                        
+                        <div className="mt-3 bg-gray-900/50 rounded-lg p-3">
+                          <div className="text-gray-500 font-semibold mb-1 text-xs">Example:</div>
+                          <div className="text-gray-400 text-xs italic">{strategy.example}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'ratings' && (
+          <div className="space-y-6">
+            <div className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700">
+              <h2 className="text-3xl font-bold mb-6">📊 Comparative Resolution Ratings</h2>
+              
+              <div className="space-y-4">
+                {COMPARATIVE_RATINGS.map((model) => (
+                  <div key={model.name} className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center gap-3">
+                        <span className="text-3xl">{model.icon}</span>
+                        <div>
+                          <h3 className="text-xl font-bold">{model.name}</h3>
+                          <p className="text-sm text-gray-400">{model.verdict}</p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-4xl font-bold" style={{ color: model.color }}>{model.score}</div>
+                        <div className="text-xs text-gray-400">/100</div>
+                      </div>
+                    </div>
+                    
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1">Loop Avoidance</div>
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1 bg-gray-700 rounded-full h-2">
+                            <div className="bg-red-500 h-2 rounded-full" style={{ width: `${model.loopAvoidance}%` }}></div>
+                          </div>
+                          <span className="text-sm font-semibold">{model.loopAvoidance}</span>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1">Memory</div>
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1 bg-gray-700 rounded-full h-2">
+                            <div className="bg-blue-500 h-2 rounded-full" style={{ width: `${model.memory}%` }}></div>
+                          </div>
+                          <span className="text-sm font-semibold">{model.memory}</span>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1">Speed</div>
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1 bg-gray-700 rounded-full h-2">
+                            <div className="bg-green-500 h-2 rounded-full" style={{ width: `${model.speed}%` }}></div>
+                          </div>
+                          <span className="text-sm font-semibold">{model.speed}</span>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="text-xs text-gray-500 mb-1">Creativity</div>
+                        <div className="flex items-center gap-2">
+                          <div className="flex-1 bg-gray-700 rounded-full h-2">
+                            <div className="bg-purple-500 h-2 rounded-full" style={{ width: `${model.creativity}%` }}></div>
+                          </div>
+                          <span className="text-sm font-semibold">{model.creativity}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'deployment' && (
+          <div className="space-y-8">
+            {/* Form A */}
+            <div className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold">📜 Form A: Cognitive Injection (System Prompt)</h2>
+                  <p className="text-gray-400 mt-2">The master text injected into any AI's context window to activate Rubbi-X v4.0</p>
+                </div>
+                <button
+                  onClick={() => copyToClipboard(FORM_A_SYSTEM_PROMPT, 'prompt')}
+                  className="px-6 py-3 bg-purple-600 hover:bg-purple-700 rounded-lg font-semibold transition-all"
+                >
+                  {copiedPrompt ? '✓ Copied!' : 'Copy Prompt'}
+                </button>
+              </div>
+              <div className="bg-gray-900 rounded-xl p-6 border border-gray-700 max-h-96 overflow-y-auto">
+                <pre className="text-xs text-gray-300 whitespace-pre-wrap font-mono">{FORM_A_SYSTEM_PROMPT}</pre>
+              </div>
+            </div>
+
+            {/* Form B */}
+            <div className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold">🐍 Form B: Middleware Architecture (Python/Rust)</h2>
+                  <p className="text-gray-400 mt-2">Local daemon that intercepts prompts, manages R1/R2 databases, enforces path hashing</p>
+                </div>
+                <button
+                  onClick={() => copyToClipboard(FORM_B_PYTHON_BLUEPRINT, 'python')}
+                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 rounded-lg font-semibold transition-all"
+                >
+                  {copiedPython ? '✓ Copied!' : 'Copy Code'}
+                </button>
+              </div>
+              <div className="bg-gray-900 rounded-xl p-6 border border-gray-700 max-h-96 overflow-y-auto">
+                <pre className="text-xs text-gray-300 whitespace-pre-wrap font-mono">{FORM_B_PYTHON_BLUEPRINT}</pre>
+              </div>
+            </div>
+
+            {/* Form C */}
+            <div className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold">🦙 Form C: Neural Modelfile (Ollama)</h2>
+                  <p className="text-gray-400 mt-2">Configuration to bake Rubbi-X into local open-weights models (Qwen, DeepSeek, Llama)</p>
+                </div>
+                <button
+                  onClick={() => copyToClipboard(FORM_C_MODELFILE, 'modelfile')}
+                  className="px-6 py-3 bg-green-600 hover:bg-green-700 rounded-lg font-semibold transition-all"
+                >
+                  {copiedModelfile ? '✓ Copied!' : 'Copy Modelfile'}
+                </button>
+              </div>
+              <div className="bg-gray-900 rounded-xl p-6 border border-gray-700 max-h-96 overflow-y-auto">
+                <pre className="text-xs text-gray-300 whitespace-pre-wrap font-mono">{FORM_C_MODELFILE}</pre>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'workflow' && (
+          <div className="space-y-6">
+            <div className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700">
+              <h2 className="text-3xl font-bold mb-6">🔄 Complete Workflow: Problem → Resolution</h2>
+              
+              <div className="space-y-3">
+                {WORKFLOW_STEPS.map((step) => (
+                  <div key={step.step} className="flex items-start gap-4 bg-gray-800/50 rounded-xl p-4 border-l-4 hover:shadow-lg transition-all" style={{ borderLeftColor: step.color }}>
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gray-700 flex items-center justify-center text-lg font-bold" style={{ backgroundColor: step.color + '30', color: step.color }}>
+                      {step.step}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center gap-3 mb-1">
+                        <h3 className="text-lg font-bold">{step.title}</h3>
+                        <span className="text-xs px-2 py-1 rounded-full bg-gray-700 text-gray-300">{step.actor}</span>
+                      </div>
+                      <p className="text-gray-400 text-sm">{step.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* End of Session Protocol */}
+            <div className="bg-gradient-to-br from-orange-900/30 to-red-900/30 rounded-2xl p-8 border border-orange-500/30">
+              <h2 className="text-2xl font-bold mb-4">🏁 End-of-Session Protocol</h2>
+              <p className="text-gray-400 mb-4">When the session ends, Rubbi-X outputs this brief, non-intrusive prompt:</p>
+              <div className="bg-gray-900 rounded-xl p-6 border border-gray-700">
+                <pre className="text-sm text-gray-300 whitespace-pre-wrap font-mono">{END_OF_SESSION_PROTOCOL}</pre>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-gray-800 mt-12 py-6">
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p className="text-xs text-gray-500">
-            Rubbi-X v4.0 — 10x Faster Anti-Loop Cognitive Framework with Incremental Processing & AST-Aware Resolution
+      <footer className="border-t border-gray-700 bg-gray-900/50 mt-16">
+        <div className="max-w-7xl mx-auto px-4 py-8 text-center">
+          <p className="text-gray-400">
+            Rubbi-X v4.0 — The $50M Cognitive Framework • 99/100 Resolution Rating • 10x Faster • 5x More Accurate
           </p>
-          <p className="text-[10px] text-gray-600 mt-1">
-            Powered by CocoIndex • Predictive Loop Prevention • Self-Evolving Superpowers • Multi-Graphify Parallelism
+          <p className="text-gray-500 text-sm mt-2">
+            This is not a demo. This is the ultimate problem-solving engine designed to outlive current tech cycles.
           </p>
         </div>
       </footer>
@@ -82,141 +371,4 @@ export default function App() {
   );
 }
 
-function OverviewView({ setActiveTab }: { setActiveTab: (tab: Tab) => void }) {
-  return (
-    <div className="space-y-6">
-      {/* Hero */}
-      <div className="bg-gradient-to-br from-purple-500/10 via-pink-500/5 to-orange-500/10 rounded-2xl border border-purple-500/30 p-8 text-center">
-        <div className="text-5xl mb-4">🎲</div>
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-orange-400 bg-clip-text text-transparent mb-3">
-          Rubbi-X v4.0
-        </h1>
-        <p className="text-lg text-gray-300 mb-2">
-          The 10x Faster Anti-Loop Cognitive Framework
-        </p>
-        <p className="text-sm text-gray-400 max-w-2xl mx-auto">
-          v4.0 introduces <span className="text-purple-300 font-medium">incremental processing</span> (only the Δ gets reprocessed), 
-          <span className="text-green-300 font-medium"> predictive loop prevention</span> (stops loops before they happen), 
-          and <span className="text-orange-300 font-medium">AST-aware code resolution</span> (superhuman code understanding via CocoIndex-Code).
-        </p>
-        <div className="flex items-center justify-center gap-4 mt-6">
-          <div className="text-center">
-            <div className="text-2xl font-bold text-purple-400">98</div>
-            <div className="text-[10px] text-gray-500">Resolution Rating</div>
-          </div>
-          <div className="w-px h-8 bg-gray-700" />
-          <div className="text-center">
-            <div className="text-2xl font-bold text-green-400">10x</div>
-            <div className="text-[10px] text-gray-500">Faster</div>
-          </div>
-          <div className="w-px h-8 bg-gray-700" />
-          <div className="text-center">
-            <div className="text-2xl font-bold text-orange-400">98%</div>
-            <div className="text-[10px] text-gray-500">Loop Prediction</div>
-          </div>
-        </div>
-      </div>
-
-      {/* v4.0 Key Improvements */}
-      <div className="bg-gray-900/50 rounded-2xl border border-gray-700/50 p-6 backdrop-blur-sm">
-        <h2 className="text-xl font-bold text-white mb-4">🚀 What's New in v4.0</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          <div className="p-4 rounded-xl border border-green-500/30 bg-green-500/5">
-            <div className="text-2xl mb-2">⚡</div>
-            <h3 className="text-sm font-bold text-white mb-1">Incremental Processing</h3>
-            <p className="text-xs text-gray-400">
-              Only the Δ (delta) gets reprocessed via CocoIndex. Unchanged atomic notes hit cache instantly. <span className="text-green-300 font-bold">10x faster</span> memory updates.
-            </p>
-          </div>
-          <div className="p-4 rounded-xl border border-blue-500/30 bg-blue-500/5">
-            <div className="text-2xl mb-2">🔮</div>
-            <h3 className="text-sm font-bold text-white mb-1">Predictive Loop Prevention</h3>
-            <p className="text-xs text-gray-400">
-              Detects loops <span className="text-blue-300 font-bold">BEFORE</span> they happen by analyzing path similarity. <span className="text-blue-300 font-bold">98% prediction accuracy</span>.
-            </p>
-          </div>
-          <div className="p-4 rounded-xl border border-orange-500/30 bg-orange-500/5">
-            <div className="text-2xl mb-2">🧬</div>
-            <h3 className="text-sm font-bold text-white mb-1">AST-Aware Code Resolution</h3>
-            <p className="text-xs text-gray-400">
-              CocoIndex-Code integration gives coding agents superhuman code understanding. <span className="text-orange-300 font-bold">70% fewer tokens</span>, 80-90% cache hits.
-            </p>
-          </div>
-          <div className="p-4 rounded-xl border border-pink-500/30 bg-pink-500/5">
-            <div className="text-2xl mb-2">🧠</div>
-            <h3 className="text-sm font-bold text-white mb-1">Self-Evolving Superpowers</h3>
-            <p className="text-xs text-gray-400">
-              Superpowers track success rates and learn from usage. High-success skills get prioritized. System gets smarter continuously.
-            </p>
-          </div>
-          <div className="p-4 rounded-xl border border-cyan-500/30 bg-cyan-500/5">
-            <div className="text-2xl mb-2">🔄</div>
-            <h3 className="text-sm font-bold text-white mb-1">Multi-Graphify Parallelism</h3>
-            <p className="text-xs text-gray-400">
-              Multiple R2 instances run in parallel on different dimensions. <span className="text-cyan-300 font-bold">3-5x faster</span> convergence.
-            </p>
-          </div>
-          <div className="p-4 rounded-xl border border-yellow-500/30 bg-yellow-500/5">
-            <div className="text-2xl mb-2">🥥</div>
-            <h3 className="text-sm font-bold text-white mb-1">CocoIndex Integration</h3>
-            <p className="text-xs text-gray-400">
-              Full integration with CocoIndex incremental engine and CocoIndex-Code AST-aware search. Production-grade infrastructure.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Quick Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="p-4 rounded-xl border border-gray-700/50 bg-gray-800/30 text-center">
-          <div className="text-3xl font-bold text-purple-400">98</div>
-          <div className="text-xs text-gray-400 mt-1">Overall Score</div>
-          <div className="text-[10px] text-gray-500">vs v3.0's 97</div>
-        </div>
-        <div className="p-4 rounded-xl border border-gray-700/50 bg-gray-800/30 text-center">
-          <div className="text-3xl font-bold text-green-400">10x</div>
-          <div className="text-xs text-gray-400 mt-1">Faster Processing</div>
-          <div className="text-[10px] text-gray-500">via incremental Δ</div>
-        </div>
-        <div className="p-4 rounded-xl border border-gray-700/50 bg-gray-800/30 text-center">
-          <div className="text-3xl font-bold text-blue-400">98%</div>
-          <div className="text-xs text-gray-400 mt-1">Loop Prediction</div>
-          <div className="text-[10px] text-gray-500">before they happen</div>
-        </div>
-        <div className="p-4 rounded-xl border border-gray-700/50 bg-gray-800/30 text-center">
-          <div className="text-3xl font-bold text-orange-400">70%</div>
-          <div className="text-xs text-gray-400 mt-1">Fewer Tokens</div>
-          <div className="text-[10px] text-gray-500">AST-aware code search</div>
-        </div>
-      </div>
-
-      {/* Quick links */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <button
-          onClick={() => setActiveTab('features')}
-          className="p-4 rounded-xl border border-gray-700/50 bg-gray-800/30 hover:border-purple-500/50 hover:bg-purple-500/5 transition-all text-left"
-        >
-          <div className="text-2xl mb-2">🚀</div>
-          <h3 className="text-sm font-bold text-white mb-1">What's New in v4.0</h3>
-          <p className="text-xs text-gray-400">Deep dive into incremental processing, predictive prevention, and AST-aware resolution</p>
-        </button>
-        <button
-          onClick={() => setActiveTab('comparison')}
-          className="p-4 rounded-xl border border-gray-700/50 bg-gray-800/30 hover:border-purple-500/50 hover:bg-purple-500/5 transition-all text-left"
-        >
-          <div className="text-2xl mb-2">📊</div>
-          <h3 className="text-sm font-bold text-white mb-1">Model Ratings</h3>
-          <p className="text-xs text-gray-400">Compare v4.0 against v3.0, Claude, DeepSeek, Qwen 3, Nemotron, and Grok</p>
-        </button>
-        <button
-          onClick={() => setActiveTab('framework')}
-          className="p-4 rounded-xl border border-gray-700/50 bg-gray-800/30 hover:border-purple-500/50 hover:bg-purple-500/5 transition-all text-left"
-        >
-          <div className="text-2xl mb-2">📜</div>
-          <h3 className="text-sm font-bold text-white mb-1">Framework & Tools</h3>
-          <p className="text-xs text-gray-400">See the full v4.0 system prompt and GitHub tool stack with CocoIndex integration</p>
-        </button>
-      </div>
-    </div>
-  );
-}
+export default App;

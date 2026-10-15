@@ -1,15 +1,49 @@
-export interface ProblemNode {
+export interface AtomicNote {
   id: string;
+  timestamp: number;
+  nodeId: string;
+  action: string;
+  result: 'success' | 'failure' | 'partial' | 'loop_detected';
+  observation: string;
+  lesson: string;
+  pathHash: string;
+  dimension: string;
+  agents: string[];
+  tools: string[];
+  blocked: boolean;
+}
+
+export interface LoopEvent {
+  id: string;
+  timestamp: number;
+  currentNodeId: string;
+  matchedPathHash: string;
+  visitCount: number;
+  branchReason: string;
+  newPathInjected: string;
+}
+
+export interface GraphifyNode {
+  id: string;
+  dimension: string;
   label: string;
-  dimension: ProblemDimension;
-  complexity: number;
-  connections: string[];
-  status: 'unsolved' | 'analyzing' | 'resolved' | 'vetted';
-  resolution?: string;
+  atomicNotes: AtomicNote[];
+  visitedPaths: string[];
+  loopCount: number;
+  isBlocked: boolean;
   confidence: number;
 }
 
-export type ProblemDimension = 'structural' | 'temporal' | 'causal' | 'relational' | 'constraint' | 'emergent';
+export interface ResolutionPath {
+  id: string;
+  name: string;
+  hash: string;
+  nodes: string[];
+  status: 'exploring' | 'converged' | 'dead_end' | 'loop_detected';
+  iteration: number;
+  probability: number;
+  confidence: number;
+}
 
 export interface Agent {
   id: string;
@@ -22,15 +56,13 @@ export interface Agent {
   accuracyScore: number;
 }
 
-export interface ResolutionPath {
-  id: string;
+export interface GitHubTool {
   name: string;
-  probability: number;
-  steps: string[];
-  tools: string[];
-  estimatedTime: string;
-  confidence: number;
-  risk: 'low' | 'medium' | 'high';
+  url: string;
+  purpose: string;
+  category: string;
+  stars: string;
+  integration: string;
 }
 
 export interface DeterministicFactor {
@@ -42,28 +74,11 @@ export interface DeterministicFactor {
   trend: 'up' | 'down' | 'stable';
 }
 
-export interface VettingResult {
-  agentId: string;
-  agentName: string;
-  verdict: 'approved' | 'rejected' | 'conditional';
-  confidence: number;
-  feedback: string;
-  timestamp: number;
-}
-
-export interface GitHubTool {
-  name: string;
-  url: string;
-  purpose: string;
-  category: 'orchestration' | 'graph' | 'llm' | 'storage' | 'visualization' | 'safety' | 'optimization';
-  stars: string;
-  integration: string;
-}
-
-export interface WorkflowStep {
-  id: number;
+export interface SuperpowerSkill {
+  id: string;
   name: string;
   description: string;
-  status: 'pending' | 'active' | 'complete';
-  duration: string;
+  category: 'creative' | 'analytical' | 'lateral' | 'paradigm_shift';
+  triggerCondition: string;
+  effect: string;
 }

@@ -7,27 +7,27 @@ export default function ToolStack() {
   const [expandedTool, setExpandedTool] = useState<string | null>(null);
 
   const categories = [
-    { key: 'all', label: 'All Tools', icon: '🔧' },
+    { key: 'all', label: 'All', icon: '🔧' },
     { key: 'orchestration', label: 'Orchestration', icon: '🎛️' },
-    { key: 'graph', label: 'Graph Engine', icon: '🕸️' },
-    { key: 'llm', label: 'LLM Layer', icon: '🧠' },
+    { key: 'creative', label: 'Creative', icon: '💥' },
+    { key: 'graph', label: 'Graph', icon: '🕸️' },
     { key: 'storage', label: 'Memory', icon: '💾' },
-    { key: 'visualization', label: 'Visual', icon: '📊' },
+    { key: 'llm', label: 'LLM', icon: '🧠' },
     { key: 'safety', label: 'Safety', icon: '🛡️' },
-    { key: 'optimization', label: 'Optimization', icon: '⚡' }
+    { key: 'optimization', label: 'Optimize', icon: '⚡' }
   ];
 
   const filteredTools = filter === 'all'
     ? GITHUB_TOOLS
-    : GITHUB_TOOLS.filter(t => t.category === filter);
+    : GITHUB_TOOLS.filter((t: GitHubTool) => t.category === filter);
 
   const getCategoryColor = (category: string) => {
     switch (category) {
       case 'orchestration': return 'border-blue-500/30 bg-blue-500/5';
+      case 'creative': return 'border-orange-500/30 bg-orange-500/5';
       case 'graph': return 'border-purple-500/30 bg-purple-500/5';
-      case 'llm': return 'border-pink-500/30 bg-pink-500/5';
       case 'storage': return 'border-green-500/30 bg-green-500/5';
-      case 'visualization': return 'border-yellow-500/30 bg-yellow-500/5';
+      case 'llm': return 'border-pink-500/30 bg-pink-500/5';
       case 'safety': return 'border-red-500/30 bg-red-500/5';
       case 'optimization': return 'border-cyan-500/30 bg-cyan-500/5';
       default: return 'border-gray-500/30 bg-gray-500/5';
@@ -41,14 +41,13 @@ export default function ToolStack() {
           <h2 className="text-xl font-bold text-white flex items-center gap-2">
             <span className="text-2xl">⚙️</span> GitHub Tool Stack
           </h2>
-          <p className="text-gray-400 text-sm mt-1">Production-grade tool integrations</p>
+          <p className="text-gray-400 text-sm mt-1">Each tool serves a specific role in the anti-loop architecture</p>
         </div>
         <span className="text-xs text-gray-400 bg-gray-800 px-3 py-1 rounded-full">
           {GITHUB_TOOLS.length} tools
         </span>
       </div>
 
-      {/* Category Filter */}
       <div className="flex flex-wrap gap-2 mb-6">
         {categories.map(cat => (
           <button
@@ -65,7 +64,6 @@ export default function ToolStack() {
         ))}
       </div>
 
-      {/* Tools Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {filteredTools.map((tool: GitHubTool) => (
           <div
@@ -94,7 +92,7 @@ export default function ToolStack() {
             
             {expandedTool === tool.name && (
               <div className="mt-3 pt-3 border-t border-gray-700/50">
-                <p className="text-[10px] text-gray-500 font-medium mb-1">INTEGRATION:</p>
+                <p className="text-[10px] text-gray-500 font-medium mb-1">ANTI-LOOP ROLE:</p>
                 <p className="text-xs text-gray-300">{tool.integration}</p>
                 <div className="mt-2">
                   <span className="text-[10px] px-2 py-0.5 rounded-full bg-gray-700/50 text-gray-300 capitalize">

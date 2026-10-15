@@ -1,4 +1,4 @@
-import { Agent, GitHubTool, DeterministicFactor } from './types';
+import { Agent, GitHubTool, SuperpowerSkill } from './types';
 
 export const AGENTS: Agent[] = [
   {
@@ -7,47 +7,47 @@ export const AGENTS: Agent[] = [
     role: 'Problem Decomposition & Pattern Recognition',
     icon: '🔬',
     status: 'idle',
-    expertise: ['Graph Theory', 'Causal Analysis', 'Pattern Recognition', 'Dimensional Mapping'],
+    expertise: ['Graph Theory', 'Causal Analysis', 'Dimensional Mapping', 'Loop Detection'],
     resolutionCount: 14823,
     accuracyScore: 97.3
   },
   {
     id: 'strategist',
     name: 'Quantum Strategist',
-    role: 'Multi-path Resolution Generation',
+    role: 'Multi-path Resolution & Branch Injection',
     icon: '🧠',
     status: 'idle',
-    expertise: ['Game Theory', 'Bayesian Optimization', 'Monte Carlo Methods', 'Heuristic Search'],
+    expertise: ['Bayesian Optimization', 'Path Hashing', 'Branch Generation', 'Convergence Analysis'],
     resolutionCount: 12456,
     accuracyScore: 95.8
   },
   {
     id: 'critic',
     name: 'Adversarial Critic',
-    role: 'Stress Testing & Edge Case Discovery',
+    role: 'Loop Detection & Path Blocking',
     icon: '⚡',
     status: 'idle',
-    expertise: ['Red Team Analysis', 'Edge Case Mining', 'Failure Mode Analysis', 'Robustness Testing'],
+    expertise: ['Cycle Detection', 'Path Hashing', 'State Comparison', 'Branch Forcing'],
     resolutionCount: 9871,
     accuracyScore: 98.1
   },
   {
     id: 'synthesizer',
-    name: 'Meta Synthesizer',
-    role: 'Cross-domain Solution Integration',
-    icon: '🔮',
+    name: 'Atomic Scribe',
+    role: 'Atomic Note Generation & Memory Encoding',
+    icon: '📝',
     status: 'idle',
-    expertise: ['Knowledge Graphs', 'Transfer Learning', 'Analogical Reasoning', 'Solution Fusion'],
+    expertise: ['Immutable Logging', 'Lesson Extraction', 'Memory Encoding', 'Note Compression'],
     resolutionCount: 11234,
     accuracyScore: 96.5
   },
   {
     id: 'prime',
     name: 'Prime Vetter',
-    role: 'Final Resolution Validation & Consensus',
+    role: 'Final Consensus & Resolution Lock',
     icon: '👑',
     status: 'idle',
-    expertise: ['Consensus Algorithms', 'Formal Verification', 'Multi-agent Agreement', 'Quality Assurance'],
+    expertise: ['Consensus Algorithms', 'Convergence Detection', 'Quality Gates', 'Resolution Lock'],
     resolutionCount: 15672,
     accuracyScore: 99.2
   }
@@ -57,157 +57,141 @@ export const GITHUB_TOOLS: GitHubTool[] = [
   {
     name: 'LangGraph',
     url: 'https://github.com/langchain-ai/langgraph',
-    purpose: 'Agent orchestration & cyclic workflow graphs for multi-step problem resolution',
+    purpose: 'Cyclic graph workflows with built-in state checkpointing for loop detection',
     category: 'orchestration',
     stars: '8.2k',
-    integration: 'Core workflow engine - manages agent communication loops and state machines'
+    integration: 'Core engine — manages state transitions, detects revisited states, triggers branch injection'
+  },
+  {
+    name: 'Superpowers',
+    url: 'https://github.com/obra/superpowers',
+    purpose: 'Agentic skills framework — creative problem discovery, circuit breakers, ledger tracking',
+    category: 'creative',
+    stars: '4.1k',
+    integration: 'Injects lateral thinking skills when loops detected — forces paradigm shifts via brainstorming skill'
   },
   {
     name: 'AutoGen',
     url: 'https://github.com/microsoft/autogen',
-    purpose: 'Multi-agent conversation framework for collaborative problem solving',
+    purpose: 'Multi-agent conversation for consensus building and atomic note validation',
     category: 'orchestration',
     stars: '35k',
-    integration: 'Agent-to-agent dialogue protocol for consensus building'
+    integration: 'Agent-to-agent protocol — validates atomic notes through adversarial cross-checking'
   },
   {
     name: 'CrewAI',
     url: 'https://github.com/joaomdmoura/crewai',
-    purpose: 'Role-based agent task delegation and execution',
+    purpose: 'Role-based task delegation with built-in memory persistence',
     category: 'orchestration',
     stars: '21k',
-    integration: 'Task routing and role assignment in the agent swarm'
+    integration: 'Routes tasks to agents based on loop detection state — assigns branch injection tasks'
   },
   {
     name: 'Neo4j',
     url: 'https://github.com/neo4j/neo4j',
-    purpose: 'Graph database for problem node storage and relationship mapping',
+    purpose: 'Graph database for atomic note storage and path hash indexing',
     category: 'graph',
     stars: '13k',
-    integration: 'Persistent graph storage for Graphify engine - problem dimensions and connections'
-  },
-  {
-    name: 'NetworkX',
-    url: 'https://github.com/networkx/networkx',
-    purpose: 'Graph algorithms for shortest-path resolution and centrality analysis',
-    category: 'graph',
-    stars: '15k',
-    integration: 'Algorithmic backbone for problem decomposition and pathfinding'
+    integration: 'Persistent atomic note store — indexes path hashes for O(1) loop detection lookups'
   },
   {
     name: 'ChromaDB',
     url: 'https://github.com/chroma-core/chroma',
-    purpose: 'Vector embeddings for similarity-based solution retrieval',
+    purpose: 'Vector embeddings for similarity-based atomic note retrieval',
     category: 'storage',
     stars: '14k',
-    integration: 'Solution memory - retrieves past resolutions similar to current problem'
+    integration: 'Finds semantically similar past failures — "have we tried something like this before?"'
   },
   {
     name: 'DSPy',
     url: 'https://github.com/stanfordnlp/dspy',
-    purpose: 'Programmatic LLM prompting with optimization for resolution quality',
+    purpose: 'Optimized prompting that adapts when loops are detected',
     category: 'optimization',
     stars: '18k',
-    integration: 'Optimizes agent prompts for maximum resolution accuracy'
+    integration: 'Rewrites agent prompts when loops detected — forces different reasoning patterns'
   },
   {
     name: 'Guardrails AI',
     url: 'https://github.com/guardrails-ai/guardrails',
-    purpose: 'Output validation and safety constraints on agent resolutions',
+    purpose: 'Output validation — blocks identical resolution attempts',
     category: 'safety',
     stars: '4.5k',
-    integration: 'Vetting pipeline safety layer - ensures resolutions meet quality gates'
-  },
-  {
-    name: 'Semantic Kernel',
-    url: 'https://github.com/microsoft/semantic-kernel',
-    purpose: 'Plugin architecture for tool integration and reasoning chains',
-    category: 'orchestration',
-    stars: '21k',
-    integration: 'Tool registry and reasoning chain management'
-  },
-  {
-    name: 'D3.js',
-    url: 'https://github.com/d3/d3',
-    purpose: 'Interactive graph visualization for problem topology rendering',
-    category: 'visualization',
-    stars: '109k',
-    integration: 'Real-time visualization of problem graph and resolution paths'
-  },
-  {
-    name: 'LiteLLM',
-    url: 'https://github.com/BerriAI/litellm',
-    purpose: 'Unified LLM interface for multi-model agent backends',
-    category: 'llm',
-    stars: '13k',
-    integration: 'Model routing - assigns optimal LLM to each agent based on task'
+    integration: 'Hard gate — rejects any resolution path with hash matching a previously failed attempt'
   },
   {
     name: 'MemGPT',
     url: 'https://github.com/cpacker/MemGPT',
-    purpose: 'Long-term memory management for agent context persistence',
+    purpose: 'Long-term memory for atomic note persistence across sessions',
     category: 'storage',
     stars: '12k',
-    integration: 'Agent memory layer - maintains context across resolution attempts'
+    integration: 'Agent memory layer — atomic notes survive across resolution attempts and sessions'
+  },
+  {
+    name: 'LiteLLM',
+    url: 'https://github.com/BerriAI/litellm',
+    purpose: 'Model routing — assigns different LLMs when loops detected',
+    category: 'llm',
+    stars: '13k',
+    integration: 'Swaps model backend on loop detection — different model = different reasoning = new paths'
   }
 ];
 
-export const DETERMINISTIC_FACTORS: DeterministicFactor[] = [
+export const SUPERPOWER_SKILLS: SuperpowerSkill[] = [
   {
-    name: 'Problem Complexity Score',
-    abbr: 'PCS',
-    score: 0,
-    maxScore: 100,
-    description: 'Quantifies the multi-dimensional complexity of the input problem',
-    trend: 'stable'
+    id: 'sp1',
+    name: 'Inversion Attack',
+    description: 'When stuck in a loop, invert every assumption. If the solution says "add X", try "remove X".',
+    category: 'paradigm_shift',
+    triggerCondition: 'Loop detected on same node 2+ times',
+    effect: 'Forces the system to explore the exact opposite of its current approach'
   },
   {
-    name: 'Resolution Confidence Index',
-    abbr: 'RCI',
-    score: 0,
-    maxScore: 100,
-    description: 'Bayesian confidence in the predicted optimal resolution path',
-    trend: 'up'
+    id: 'sp2',
+    name: 'Dimensional Escape',
+    description: 'Jump to a completely unrelated problem dimension. How would a biologist solve this? A poet?',
+    category: 'lateral',
+    triggerCondition: '3+ atomic notes of "failure" on same path',
+    effect: 'Injects cross-domain analogies that break the current reasoning frame'
   },
   {
-    name: 'Agent Consensus Score',
-    abbr: 'ACS',
-    score: 0,
-    maxScore: 100,
-    description: 'Degree of agreement among all agents on the proposed solution',
-    trend: 'up'
+    id: 'sp3',
+    name: 'Constraint Removal',
+    description: 'Identify which constraint is creating the loop. Temporarily remove it. Solve without it. Then re-add.',
+    category: 'creative',
+    triggerCondition: 'Loop involves constraint dimension',
+    effect: 'Reveals hidden dependencies and alternative architectures'
   },
   {
-    name: 'Solution Viability Matrix',
-    abbr: 'SVM',
-    score: 0,
-    maxScore: 100,
-    description: 'Multi-criteria evaluation of solution feasibility and robustness',
-    trend: 'stable'
+    id: 'sp4',
+    name: 'Atomic Decomposition',
+    description: 'Break the stuck node into 5 smaller sub-problems. Solve each independently. Merge.',
+    category: 'analytical',
+    triggerCondition: 'Node has 3+ failed atomic notes',
+    effect: 'Reduces complexity per attempt, enabling convergence on sub-problems'
   },
   {
-    name: 'Temporal Decay Factor',
-    abbr: 'TDF',
-    score: 0,
-    maxScore: 100,
-    description: 'Time-sensitivity weighting - how urgency affects resolution priority',
-    trend: 'down'
+    id: 'sp5',
+    name: 'Temporal Reframing',
+    description: 'Solve the problem as if it happened 10 years ago. Then 10 years in the future.',
+    category: 'lateral',
+    triggerCondition: 'Temporal dimension stuck in loop',
+    effect: 'Reveals time-independent solution cores vs time-dependent constraints'
   },
   {
-    name: 'Cross-Domain Applicability',
-    abbr: 'CDA',
-    score: 0,
-    maxScore: 100,
-    description: 'How many other problem domains this solution pattern can transfer to',
-    trend: 'up'
+    id: 'sp6',
+    name: 'Adversarial Injection',
+    description: 'Have the Critic agent actively try to BREAK the current solution. Record what breaks.',
+    category: 'creative',
+    triggerCondition: 'Resolution confidence > 80% but loop persists',
+    effect: 'Exposes hidden failure modes that the original approach missed'
   }
 ];
 
 export const DIMENSIONS = [
-  { key: 'structural', label: 'Structural', color: '#FF6B6B', description: 'Architecture & composition analysis' },
-  { key: 'temporal', label: 'Temporal', color: '#4ECDC4', description: 'Time-based constraints & sequencing' },
-  { key: 'causal', label: 'Causal', color: '#45B7D1', description: 'Cause-effect chain mapping' },
-  { key: 'relational', label: 'Relational', color: '#96CEB4', description: 'Entity relationships & dependencies' },
-  { key: 'constraint', label: 'Constraint', color: '#FFEAA7', description: 'Limitations & boundary conditions' },
-  { key: 'emergent', label: 'Emergent', color: '#DDA0DD', description: 'Non-obvious patterns & hidden dynamics' }
+  { key: 'structural', label: 'Structural', color: '#FF6B6B', description: 'Architecture & composition' },
+  { key: 'temporal', label: 'Temporal', color: '#4ECDC4', description: 'Time constraints & sequencing' },
+  { key: 'causal', label: 'Causal', color: '#45B7D1', description: 'Cause-effect chains' },
+  { key: 'relational', label: 'Relational', color: '#96CEB4', description: 'Dependencies & connections' },
+  { key: 'constraint', label: 'Constraint', color: '#FFEAA7', description: 'Boundaries & limits' },
+  { key: 'emergent', label: 'Emergent', color: '#DDA0DD', description: 'Hidden dynamics & patterns' }
 ];

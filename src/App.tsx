@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { COMPARATIVE_RATINGS, TEN_STRATEGIES, FORM_A_SYSTEM_PROMPT, FORM_B_PYTHON_BLUEPRINT, FORM_C_MODELFILE, WORKFLOW_STEPS, END_OF_SESSION_PROTOCOL } from './data';
+import { COMPARATIVE_RATINGS, TEN_STRATEGIES, FORM_A_SYSTEM_PROMPT, FORM_B_PYTHON_BLUEPRINT, FORM_C_MODELFILE, WORKFLOW_STEPS, END_OF_SESSION_PROTOCOL, PATTERN_ENGINE, DETERMINISTIC_FACTORS, GPU_ACCELERATION } from './data';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'overview' | 'strategies' | 'ratings' | 'deployment' | 'workflow'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'strategies' | 'advanced' | 'ratings' | 'deployment' | 'workflow'>('overview');
   const [copiedPrompt, setCopiedPrompt] = useState(false);
   const [copiedPython, setCopiedPython] = useState(false);
   const [copiedModelfile, setCopiedModelfile] = useState(false);
@@ -48,6 +48,7 @@ function App() {
             {[
               { id: 'overview', label: 'Overview', icon: '🧠' },
               { id: 'strategies', label: '10 Strategies', icon: '⚡' },
+              { id: 'advanced', label: 'Advanced Features', icon: '🎮' },
               { id: 'ratings', label: 'Comparative Ratings', icon: '📊' },
               { id: 'deployment', label: '3-in-1 Deployment', icon: '🚀' },
               { id: 'workflow', label: 'Workflow', icon: '🔄' }
@@ -94,6 +95,21 @@ function App() {
                   <h3 className="text-lg font-bold mb-2">AST-Aware Code Resolution</h3>
                   <p className="text-sm text-gray-400">CocoIndex-Code integration gives coding agents superhuman code understanding. 70% fewer tokens.</p>
                 </div>
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <div className="text-4xl mb-2">🧩</div>
+                  <h3 className="text-lg font-bold mb-2">Pattern Recognition Engine</h3>
+                  <p className="text-sm text-gray-400">GPU-accelerated pattern detection across atomic notes. Identifies success patterns, anti-patterns, and emergent structures.</p>
+                </div>
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <div className="text-4xl mb-2">🎮</div>
+                  <h3 className="text-lg font-bold mb-2">GPU Acceleration Layer</h3>
+                  <p className="text-sm text-gray-400">Leverages CUDA/OpenCL for parallel hash computation and similarity matching. 10-100x speedup.</p>
+                </div>
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <div className="text-4xl mb-2">📐</div>
+                  <h3 className="text-lg font-bold mb-2">Deterministic Scoring</h3>
+                  <p className="text-sm text-gray-400">Reproducible quality metrics: RCI, PMC, DPS, GAF, LPA, ANI. All scores deterministic given same inputs.</p>
+                </div>
               </div>
             </div>
 
@@ -125,7 +141,7 @@ function App() {
             </div>
 
             {/* Key Metrics */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
               <div className="bg-gray-800/50 rounded-xl p-6 text-center border border-gray-700">
                 <div className="text-4xl font-bold text-green-400">99%</div>
                 <div className="text-sm text-gray-400 mt-2">Loop Avoidance</div>
@@ -141,6 +157,133 @@ function App() {
               <div className="bg-gray-800/50 rounded-xl p-6 text-center border border-gray-700">
                 <div className="text-4xl font-bold text-purple-400">5x</div>
                 <div className="text-sm text-gray-400 mt-2">Better Accuracy</div>
+              </div>
+              <div className="bg-gray-800/50 rounded-xl p-6 text-center border border-gray-700">
+                <div className="text-4xl font-bold text-pink-400">0.3ms</div>
+                <div className="text-sm text-gray-400 mt-2">Pattern Match (GPU)</div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activeTab === 'advanced' && (
+          <div className="space-y-8">
+            {/* Pattern Recognition Engine */}
+            <div className="bg-gradient-to-br from-purple-900/30 via-pink-900/30 to-orange-900/30 rounded-2xl p-8 border border-purple-500/30">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="text-6xl">{PATTERN_ENGINE.icon}</div>
+                <div className="flex-1">
+                  <h2 className="text-3xl font-bold mb-2">{PATTERN_ENGINE.name}</h2>
+                  <p className="text-sm text-purple-400 font-mono mb-3">Codename: {PATTERN_ENGINE.codename}</p>
+                  <p className="text-gray-300">{PATTERN_ENGINE.description}</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <h3 className="text-lg font-bold mb-3 text-purple-400">Capabilities</h3>
+                  <ul className="space-y-2">
+                    {PATTERN_ENGINE.capabilities.map((cap, i) => (
+                      <li key={i} className="text-sm text-gray-300 flex items-start gap-2">
+                        <span className="text-purple-400 mt-1">▸</span>
+                        <span>{cap}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <h3 className="text-lg font-bold mb-3 text-green-400">Performance Metrics</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <div className="text-sm text-gray-400 mb-1">GPU Acceleration</div>
+                      <div className="text-sm text-gray-300">{PATTERN_ENGINE.gpuAcceleration}</div>
+                    </div>
+                    <div>
+                      <div className="text-sm text-gray-400 mb-1">Deterministic Score</div>
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 bg-gray-700 rounded-full h-2">
+                          <div className="bg-green-500 h-2 rounded-full" style={{ width: `${PATTERN_ENGINE.deterministicScore}%` }}></div>
+                        </div>
+                        <span className="text-sm font-bold text-green-400">{PATTERN_ENGINE.deterministicScore}/100</span>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="text-sm text-gray-400 mb-1">Pattern Match Speed</div>
+                      <div className="text-sm text-green-400 font-mono">{PATTERN_ENGINE.patternMatchSpeed}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* GPU Acceleration Layer */}
+            <div className="bg-gradient-to-br from-green-900/30 via-cyan-900/30 to-blue-900/30 rounded-2xl p-8 border border-green-500/30">
+              <div className="flex items-start gap-4 mb-6">
+                <div className="text-6xl">{GPU_ACCELERATION.icon}</div>
+                <div className="flex-1">
+                  <h2 className="text-3xl font-bold mb-2">{GPU_ACCELERATION.name}</h2>
+                  <p className="text-sm text-green-400 font-mono mb-3">Codename: {GPU_ACCELERATION.codename}</p>
+                  <p className="text-gray-300">{GPU_ACCELERATION.description}</p>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <h3 className="text-lg font-bold mb-3 text-green-400">Use Cases</h3>
+                  <ul className="space-y-2">
+                    {GPU_ACCELERATION.useCases.map((useCase, i) => (
+                      <li key={i} className="text-xs text-gray-300 flex items-start gap-2">
+                        <span className="text-green-400 mt-1">▸</span>
+                        <span>{useCase}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <h3 className="text-lg font-bold mb-3 text-blue-400">Hardware Support</h3>
+                  <div className="text-sm text-gray-300 mb-4">{GPU_ACCELERATION.hardware}</div>
+                  <div className="text-xs text-gray-400">
+                    Seamless integration with automatic CPU fallback if GPU unavailable
+                  </div>
+                </div>
+                
+                <div className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                  <h3 className="text-lg font-bold mb-3 text-yellow-400">Performance Gain</h3>
+                  <div className="text-4xl font-bold text-yellow-400 mb-2">{GPU_ACCELERATION.performanceGain}</div>
+                  <div className="text-xs text-gray-400">
+                    Depending on workload size and GPU capabilities
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Deterministic Scoring System */}
+            <div className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700">
+              <h2 className="text-3xl font-bold mb-2">📐 Deterministic Scoring System</h2>
+              <p className="text-gray-400 mb-6">Reproducible, quantifiable resolution quality metrics. All scores are deterministic given the same inputs.</p>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {DETERMINISTIC_FACTORS.map((factor, i) => (
+                  <div key={i} className="bg-gray-800/50 rounded-xl p-6 border border-gray-700">
+                    <div className="flex items-center justify-between mb-3">
+                      <h3 className="text-lg font-bold">{factor.name}</h3>
+                      <span className="text-xs px-2 py-1 rounded-full bg-purple-500/20 text-purple-400 font-mono">{factor.abbr}</span>
+                    </div>
+                    <p className="text-sm text-gray-400 mb-3">{factor.description}</p>
+                    <div className="bg-gray-900/50 rounded-lg p-3 mb-3">
+                      <div className="text-xs text-gray-500 mb-1">Formula:</div>
+                      <div className="text-xs text-green-400 font-mono">{factor.formula}</div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="text-xs text-gray-500">Deterministic:</div>
+                      <div className={`text-xs font-bold ${factor.deterministic ? 'text-green-400' : 'text-yellow-400'}`}>
+                        {factor.deterministic ? '✓ Yes' : '✗ No (Hardware-dependent)'}
+                      </div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>

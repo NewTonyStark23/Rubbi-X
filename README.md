@@ -699,28 +699,57 @@ of this project.
 
 ## 🚀 Getting Started
 
+**⚠️ IMPORTANT:** This README is documentation. The actual working files are:
+- `FORM_A_SYSTEM_PROMPT.txt` — The system prompt to feed to any AI
+- `FORM_B_MIDDLEWARE.py` — The Python middleware to run locally
+- `FORM_C_MODELFILE` — The Ollama Modelfile for local models
+
 ### Option 1: Cloud AI (Fastest)
-1. Open the web interface
-2. Go to "3-in-1 Deployment" tab
-3. Copy "Form A: Cognitive Injection"
-4. Paste at start of your Claude/GPT/Grok conversation
-5. Start solving problems
+1. Open `FORM_A_SYSTEM_PROMPT.txt`
+2. Copy the entire contents
+3. Paste at the start of your Claude/GPT/Grok conversation
+4. Start solving problems
+
+**Example:**
+```
+# Paste FORM_A_SYSTEM_PROMPT.txt contents here
+# Then add your actual question below
+
+User: Fix this React useEffect infinite loop
+```
 
 ### Option 2: Local Middleware (Most Powerful)
-1. Open the web interface
-2. Go to "3-in-1 Deployment" tab
-3. Copy "Form B: Middleware Architecture"
-4. Save as `rubbix_middleware.py`
-5. Run: `python rubbix_middleware.py`
-6. Configure your AI tool to use the middleware
+1. Install dependencies: `pip install numpy`
+2. Open `FORM_B_MIDDLEWARE.py`
+3. Run: `python FORM_B_MIDDLEWARE.py`
+4. The middleware creates a SQLite database and manages R1/R2 automatically
+5. Use the `PromptInterceptor` class to transform prompts
+
+**Example:**
+```python
+from FORM_B_MIDDLEWARE import RubbiXMiddleware, PromptInterceptor
+
+middleware = RubbiXMiddleware("my_project")
+interceptor = PromptInterceptor(middleware)
+
+# Transform user prompt
+enhanced_prompt = interceptor.intercept("Fix this React bug")
+print(enhanced_prompt)
+```
 
 ### Option 3: Local Model (Most Permanent)
-1. Open the web interface
-2. Go to "3-in-1 Deployment" tab
-3. Copy "Form C: Neural Modelfile"
-4. Save as `Modelfile`
-5. Run: `ollama create rubbi-x -f Modelfile`
-6. Run: `ollama run rubbi-x`
+1. Install Ollama: https://ollama.com
+2. Open `FORM_C_MODELFILE`
+3. Run: `ollama create rubbi-x -f FORM_C_MODELFILE`
+4. Run: `ollama run rubbi-x`
+5. The model now permanently operates under Rubbi-X v4.0 framework
+
+**Example:**
+```bash
+ollama create rubbi-x -f FORM_C_MODELFILE
+ollama run rubbi-x
+>>> Fix this React useEffect infinite loop
+```
 
 ---
 
